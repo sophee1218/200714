@@ -28,7 +28,9 @@ public class Connector
 	{
 		try
 		{
-			return DriverManager.getConnection(URL, ID, PWD);
+			Connection con = DriverManager.getConnection(URL, ID, PWD);
+			con.setAutoCommit(false);
+			return con;
 		} catch (SQLException e)
 		{
 			e.printStackTrace();
