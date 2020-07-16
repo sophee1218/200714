@@ -24,7 +24,7 @@ public class MemberDAOImpl implements MemberDAO
 		try
 		{
 			con = Connector.open();
-			String sql = "insert into member(m_num, m_name, m_id, m_pwd, m_joindate) ";
+			String sql = "insert into member(m_num, m_name, m_id, m_pwd, m_credat) ";
 			sql += " values(seq_member_m_num.nextval, ?, ?, ?, sysdate) ";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, Member.get("m_name").toString());
@@ -153,7 +153,7 @@ public class MemberDAOImpl implements MemberDAO
 		try
 		{
 			con = Connector.open();
-			String sql = "select m_num, m_name, m_id, m_pwd, m_joindate from member ";
+			String sql = "select m_num, m_name, m_id, m_pwd, m_credat from member ";
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 			while (rs.next())
@@ -163,7 +163,7 @@ public class MemberDAOImpl implements MemberDAO
 				map.put("m_name", rs.getString("m_name"));
 				map.put("m_id", rs.getString("m_id"));
 				map.put("m_pwd", rs.getString("m_pwd"));
-				map.put("m_joindate", rs.getString("m_joindate"));
+				map.put("m_credat", rs.getString("m_credat"));
 				mList.add(map);
 
 			}
@@ -204,7 +204,7 @@ public class MemberDAOImpl implements MemberDAO
 		try
 		{
 			con = Connector.open();
-			String sql = "select m_num, m_name, m_id, m_pwd, m_joindate from member where m_num = ? ";
+			String sql = "select m_num, m_name, m_id, m_pwd, m_credat from member where m_num = ? ";
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, mNum);
 			rs = ps.executeQuery();
@@ -215,7 +215,7 @@ public class MemberDAOImpl implements MemberDAO
 				map.put("m_name", rs.getString("m_name"));
 				map.put("m_id", rs.getString("m_id"));
 				map.put("m_pwd", rs.getString("m_pwd"));
-				map.put("m_joindate", rs.getString("m_joindate"));
+				map.put("m_credat", rs.getString("m_credat"));
 				return map;
 			}
 
@@ -243,6 +243,30 @@ public class MemberDAOImpl implements MemberDAO
 		}
 		return null;
 
+	}
+
+	public static void main(String[] args)
+	{
+		MemberDAO Mdao = new MemberDAOImpl();
+		Map<String, Object> map = new HashMap<>();
+		
+//		Mdao.insertMember(map);
+//		System.out.println(map);
+		
+//		List<Map<String, Object>> mList = Mdao.selectMemberList(map);
+//		System.out.println(mList);
+//		System.out.println(Mdao.selectMember(1));
+//		int result = Mdao.deleteMember(21);
+		map.put("m_name", "신송희");
+		map.put("m_id", "sophee1");
+		map.put("m_pwd", "123456");
+		map.put("m_num" , 1);
+		int result = Mdao.updateMember(map);
+		System.out.print("수정갯수 : " + result);
+		
+		
+		
+		
 	}
 
 }
