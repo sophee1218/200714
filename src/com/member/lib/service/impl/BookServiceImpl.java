@@ -1,10 +1,11 @@
-package com.member.lib.dao.impl;
+package com.member.lib.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.member.lib.dao.BookDAO;
+import com.member.lib.dao.impl.BookDAOImpl;
 import com.member.lib.service.BookService;
 
 public class BookServiceImpl implements BookService
