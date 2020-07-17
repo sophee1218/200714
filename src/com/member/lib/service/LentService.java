@@ -5,9 +5,9 @@ import java.util.Map;
 
 public interface LentService
 {
-	int insertLent(Map<String,Object> lent);
-	int updateLent(Map<String,Object> lent);
-	int deleteLent(int lNum);
-	List<Map<String,Object>> selectLent(Map<String,Object> lent);
+	Map<String,Object> inserLent(Map<String,Object> lent);
+	Map<String,Object> updateLent(Map<String,Object> lent);
+	Map<String,Object> deleteLent(int lNum);
+	List<Map<String,Object>> selectLentList(Map<String,Object> lent);
 	Map<String,Object> selectLent(int lNum);
 }

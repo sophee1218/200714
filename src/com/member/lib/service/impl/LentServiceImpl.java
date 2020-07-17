@@ -9,28 +9,28 @@ public class LentServiceImpl implements LentService
 {
 
 	@Override
-	public int insertLent(Map<String, Object> lent)
+	public Map<String, Object> inserLent(Map<String, Object> lent)
 	{
 		// TODO Auto-generated method stub
-		return 0;
+		return null;
 	}
 
 	@Override
-	public int updateLent(Map<String, Object> lent)
+	public Map<String, Object> updateLent(Map<String, Object> lent)
 	{
 		// TODO Auto-generated method stub
-		return 0;
+		return null;
 	}
 
 	@Override
-	public int deleteLent(int lNum)
+	public Map<String, Object> deleteLent(int lNum)
 	{
 		// TODO Auto-generated method stub
-		return 0;
+		return null;
 	}
 
 	@Override
-	public List<Map<String, Object>> selectLent(Map<String, Object> lent)
+	public List<Map<String, Object>> selectLentList(Map<String, Object> lent)
 	{
 		// TODO Auto-generated method stub
 		return null;
