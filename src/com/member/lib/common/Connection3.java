@@ -1,42 +1,52 @@
 package com.member.lib.common;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class Connection3
 {
-	private static final String URL="jdbc:oracle:thin:@localhost:1521/xe";
-	private static final String ID="c##test";
-	private static final String PWD="test";
-	private static final String DRIVER_NAME="oracle.jdbc.driver.OracleDriver";
-	static
-	{
-		try
-		{
-			Class.forName(DRIVER_NAME);
-		} catch (ClassNotFoundException e)
-		{
-			e.printStackTrace();
-		}
-	}
-	
-	public static Connection open()
-	{
-		try
-		{
-			return DriverManager.getConnection(URL,ID,PWD);
-		} catch (SQLException e)
-		{
-			e.printStackTrace();
-		}
-		return null;
-	}
+
 	public static void main(String[] args)
 	{
-		Connection con = open();
-		String sql = "select l_num, l_lentdate, l_recdate, m_num, b_num from lent";
 		
+		Connection con = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		try
+		{
+			Class.forName("oracle.jbdc.driver.OracleDriver");
+			con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/xe", "c##test", "test");
+
+			String sql = "select num, name, id from user_info";
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(sql);
+			while (rs.next())
+			{
+				System.out.println(rs.getInt("num")+rs.getString("name")+rs.getString("id"));
+			}
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		} finally
+		{
+			try
+			{
+				if(rs!=null)
+				{
+					rs.close();
+				}
+				if(stmt!=null)
+				{
+				stmt.close();
+				}
+				if(con!=null)
+				{
+					con.close();
+				}
+			}catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 
 }

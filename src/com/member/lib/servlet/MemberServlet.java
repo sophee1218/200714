@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +21,7 @@ public class MemberServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
 	MemberService memberService = new MemberServiceImpl();
+
 	private void doProcess(HttpServletResponse response, String str) throws IOException
 	{
 		response.setContentType("text/html;charset=UTF-8");
@@ -31,11 +33,16 @@ public class MemberServlet extends HttpServlet
 	{
 		String uri = request.getRequestURI();
 		String str = "";
+
 		if ("/member/list".equals(uri))
 		{
-			//16020089487
+			// 16020089487
 			List<Map<String, Object>> memberList = memberService.selectMemberList(null);
-			str = memberList.toString();
+			request.setAttribute("memberList", memberList);
+			RequestDispatcher rd = request.getRequestDispatcher("/views/member/member-list");
+			rd.forward(request, response);
+			return;
+
 		} else if ("/member/view".equals(uri))
 		{
 			String m_num = request.getParameter("m_num");
@@ -44,15 +51,12 @@ public class MemberServlet extends HttpServlet
 				throw new ServletException("나가");
 			}
 			int mNum = Integer.parseInt(m_num);
-			
+
 			Map<String, Object> member = memberService.selectMember(mNum);
-			if (member != null)
-			{
-				str = member.toString();
-			} else
-			{
-				str = "없는 회원번호 입니다";
-			}
+			request.setAttribute("member", member);
+			RequestDispatcher rd = request.getRequestDispatcher("/views/member/member-view");
+			rd.forward(request, response);
+			return;
 		} else
 		{
 			str = "잘못들어오셨어요";
@@ -64,7 +68,7 @@ public class MemberServlet extends HttpServlet
 	{
 		request.setCharacterEncoding("UTF-8");
 		String uri = request.getRequestURI();
-		if("/member/insert".equals(uri))
+		if ("/member/insert".equals(uri))
 		{
 			String mName = request.getParameter("m_name");
 			String mId = request.getParameter("m_id");
@@ -73,12 +77,11 @@ public class MemberServlet extends HttpServlet
 			member.put("m_name", mName);
 			member.put("m_id", mId);
 			member.put("m_pwd", mPwd);
-			Map<String,Object> rMap = memberService.insertMember(member);
+			Map<String, Object> rMap = memberService.insertMember(member);
 			doProcess(response, rMap.toString());
-			
-			
+
 		}
-		
+
 	}
 
 }

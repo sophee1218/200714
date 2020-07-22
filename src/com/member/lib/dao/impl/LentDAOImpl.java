@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.member.lib.common.Connector;
-import com.member.lib.dao.BookDAO;
 import com.member.lib.dao.LentDAO;
 
 public class LentDAOImpl implements LentDAO {
@@ -226,5 +225,50 @@ public class LentDAOImpl implements LentDAO {
 		map.put("b_num", 1);
 		ldao.insertLent(map);
 
+}
+
+@Override
+public List<Map<String, Object>> NotlentBookList()
+{
+    Connection con = null;
+    PreparedStatement ps = null;
+    int result = null;
+    try {
+  	 con = Connector.open();
+       String sql = "select b_num,b_title from book\r\n" + 
+       		"where b_num not in(select b_num from lent\r\n" + 
+       		"where l_recdate is null)";
+       ps = con.prepareStatement(sql);
+       result = ps.executeUpdate();
+       while(rs.next())
+       {
+    	   Map<String Object> map = new HashMap<>();
+    	   map.put("b_num", rs.getInt("b_num"));
+    	   map.put("b_title", rs.getString("b_title"));
+    	   lentList.add(map);
+       }
+       
+       
+    } catch (Exception e) {
+       e.printStackTrace();
+    } finally {
+       if (ps != null) {
+          try {
+             ps.close();
+          } catch (SQLException e) {
+             e.printStackTrace();
+          }
+       }
+       if (con != null) {
+          try {
+             con.close();
+          } catch (SQLException e) {
+             e.printStackTrace();
+          }
+       }
+    }
+    return lentList;
+ 
+	return null;
 }
 }

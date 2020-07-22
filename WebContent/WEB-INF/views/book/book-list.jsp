@@ -10,21 +10,21 @@
 <body>
 <table border="1">
 	<tr>
-		<th>이름</th>
-		<th>아이디</th>
-		<th>패스워드</th>
-		<th>가입일</th>
+		<th>도서번호</th>
+		<th>도서명</th>
+		<th>저자명</th>
+		<th>출판일</th>
 	</tr>
-<c:forEach items="${memberList}" var="member">
+<c:forEach items="${bookList}" var="book">
 	<tr>
-		<td>${member.m_name}</td>
-		<td><a href="/member/view?m_num=${member.m_num}">${member.m_id}</a></td>
-		<td>${member.m_pwd}</td>
-		<td>${member.m_credat}</td>
+		<td>${book.b_name}</td>
+		<td><a href="/book/view?b_num=${book.b_no}">${book.b_title}</a></td>
+		<td>${book.b_author}</td>
+		<td>${bool.b_credat}</td>
 	</tr>
 </c:forEach>
 </table>
-
+<a href="/views/book/"
 </body>
 </html>
 

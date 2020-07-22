@@ -10,4 +10,5 @@ public interface LentService
 	Map<String,Object> deleteLent(int lNum);
 	List<Map<String,Object>> selectLentList(Map<String,Object> lent);
 	Map<String,Object> selectLent(int lNum);
+	List<Map<String, Object>> NotlentBookList();
 }

@@ -3,6 +3,7 @@ package com.member.lib.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import com.member.lib.dao.LentDAO;
 import com.member.lib.service.LentService;
 
 public class LentServiceImpl implements LentService
@@ -42,5 +43,9 @@ public class LentServiceImpl implements LentService
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	@Override
+	public List<Map<String, Object>> NotlentBookList()
+	{
+		return LentDAO.NotlentBookList();
+	}
 }
